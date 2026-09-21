@@ -1,0 +1,123 @@
+/* ===== VARIABEL WARNA (TEMA BERSIH & MODERN) ===== */
+:root {
+    --bg-page: #f0f4f8;        /* Latar belakang halaman (abu-abu kebiruan sangat muda) */
+    --bg-card: #ffffff;        /* Latar belakang kartu (putih bersih) */
+    --text-dark: #1e293b;      /* Warna teks judul (biru dongker gelap) */
+    --text-muted: #64748b;     /* Warna teks paragraf (abu-abu) */
+    --accent: #4f46e5;         /* Warna aksen ungu/nila modern */
+    --shadow-card: 0 4px 6px rgba(0, 0, 0, 0.05); /* Bayangan kartu tipis */
+    --shadow-hover: 0 15px 25px rgba(0, 0, 0, 0.08); /* Bayangan saat kartu disorot */
+}
+
+/* ===== RESET DASAR ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif; /* Menggunakan font modern */
+    background-color: var(--bg-page);   /* Memasang warna latar web */
+    color: var(--text-dark);            /* Memasang warna teks utama */
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;             /* Menyusun elemen dari atas ke bawah */
+    align-items: center;                /* Menengahkan seluruh isi web */
+    min-height: 100vh;                  /* Memastikan tinggi web minimal seukuran layar */
+}
+
+/* ===== HEADER (Bagian Atas) ===== */
+.hero-header {
+    width: 100%;                        /* Header membentang penuh kiri-kanan */
+    text-align: center;                 /* Teks di tengah */
+    padding: 60px 20px 40px;            /* Jarak atas 60px, sisi 20px, bawah 40px */
+}
+
+.hero-header h1 {
+    font-size: 2.2rem;                  /* Ukuran judul besar */
+    font-weight: 700;                   /* Judul tebal */
+    color: var(--text-dark);
+    margin-bottom: 10px;                /* Jarak ke subtitle bawahnya */
+}
+
+.subtitle {
+    font-size: 1rem;                    /* Ukuran font nama/kelas */
+    color: var(--text-muted);           /* Warna abu-abu pudar */
+    font-weight: 500;
+    background-color: #e2e8f0;          /* Latar abu-abu di belakang teks nama */
+    display: inline-block;              /* Kotak menyesuaikan lebar teks */
+    padding: 8px 20px;                  /* Ruang di dalam kotak nama */
+    border-radius: 30px;                /* Ujung kotak melengkung seperti pil */
+}
+
+/* ===== AREA KONTEN (Daftar Jobsheet) ===== */
+.main-content {
+    width: 100%;
+    max-width: 1000px;                  /* Lebar maksimal area kartu agar tidak terlalu melebar di layar PC */
+    padding: 0 20px;                    /* Jarak kiri kanan agar tidak mepet layar HP */
+    flex: 1;                            /* Mendorong footer ke paling bawah */
+}
+
+/* ===== GRID KARTU ===== */
+.card-grid {
+    display: grid;
+    /* Membuat kolom otomatis, minimal lebar kartu 280px, sisanya dibagi rata */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;                          /* Jarak antar kotak jobsheet */
+}
+
+/* ===== DESAIN KARTU JOBSHEET ===== */
+.task-card {
+    background-color: var(--bg-card);
+    padding: 30px 25px;
+    border-radius: 12px;                /* Sudut melengkung */
+    text-decoration: none;              /* Menghilangkan garis bawah pada link */
+    color: inherit;
+    box-shadow: var(--shadow-card);
+    position: relative;                 /* Agar elemen nomor bisa diatur posisinya di dalam sini */
+    transition: all 0.3s ease;          /* Animasi halus saat dihover */
+    border-top: 4px solid transparent;  /* Garis atas disiapkan, tapi transparan */
+    overflow: hidden;                   /* Mencegah nomor tumpah keluar kotak */
+}
+
+.task-card:hover {
+    transform: translateY(-8px);        /* Efek melayang (naik 8px) */
+    box-shadow: var(--shadow-hover);    /* Bayangan menebal */
+    border-top: 4px solid var(--accent); /* Garis atas berubah jadi warna aksen (ungu) */
+}
+
+/* Angka besar transparan di latar belakang kartu */
+.card-number {
+    position: absolute;
+    top: -5px;                          /* Posisi agak menempel ke atap kartu */
+    right: 15px;
+    font-size: 4rem;                    /* Angka sangat besar */
+    font-weight: 700;
+    color: #f1f5f9;                     /* Warna abu-abu sangat pudar seperti watermark */
+    z-index: 1;                         /* Berada di belakang teks */
+    pointer-events: none;               /* Angka tidak bisa diklik/diblok */
+}
+
+.task-card h3 {
+    font-size: 1.15rem;
+    margin-bottom: 12px;
+    position: relative;                 /* Memastikan teks ada di atas angka */
+    z-index: 2;
+}
+
+.task-card p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    position: relative;                 /* Memastikan teks ada di atas angka */
+    z-index: 2;
+}
+
+/* ===== FOOTER ===== */
+footer {
+    width: 100%;
+    text-align: center;
+    padding: 40px 20px 20px;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
