@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once '../includes/koneksi.php';
+require_once __DIR__ . '/../includes/koneksi.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $no_ktp = trim($_POST['no_ktp'] ?? '');
