@@ -20,7 +20,7 @@ if (getenv('VERCEL')) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>AutoBekas<?php echo isset($page_title) ? ' | ' . $page_title : ''; ?></title>
     <!-- Path disesuaikan dengan folder style/css/ -->
-    <link rel="stylesheet" href="<?php echo $base; ?>style/css/style.css">
+    <link rel="stylesheet" href="<?php echo $base; ?>assets/css/style.css">
 </head>
 <body>
     <header>
