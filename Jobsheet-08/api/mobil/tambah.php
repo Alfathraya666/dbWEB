@@ -19,7 +19,7 @@ unset($_SESSION['flash']);
                 </p>
                 <p>
                     <label for="model">Model / Tipe</label><br>
-                    <input type="text" id="model" name="model" placeholder="misal: Avanza G, Civic Turbo" required>
+                    <input type="text" id="model" name="model" placeholder="misal: Avanza Tioe G, Civic Turbo" required>
                 </p>
                 <p>
                     <label for="tahun">Tahun Pembuatan</label><br>
@@ -37,7 +37,7 @@ unset($_SESSION['flash']);
                     <label for="kondisi">Kondisi Kendaraan</label><br>
                     <select id="kondisi" name="kondisi">
                         <option value="Sangat Baik">Sangat Baik (Istimewa)</option>
-                        <option value="Baik">Baik (Biasa Pakai)</option>
+                        <option value="Baik">Baik (Dipakai Harian)</option>
                         <option value="Butuh Perbaikan">Butuh Perbaikan</option>
                     </select>
                 </p>

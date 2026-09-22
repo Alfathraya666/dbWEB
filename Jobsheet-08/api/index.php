@@ -8,11 +8,11 @@ $totalPelanggan = (int) $pdo->query("SELECT COUNT(*) FROM pelanggan")->fetchColu
 ?>
         <section>
             <h2>Selamat Datang di AutoBekas Marketplace</h2>
-            <p>Platform terpercaya untuk mencari dan menjual mobil bekas berkualitas.</p>
+            <p>Your car reflects your standards. At AutoBekas, we meet them.</p>
         </section>
 
         <section>
-            <h2>Ringkasan Dashboard</h2>
+            <h2>Dashboard</h2>
             <article>
                 <h3>Total Mobil Tersedia</h3>
                 <p><?php echo $totalMobil; ?></p>
