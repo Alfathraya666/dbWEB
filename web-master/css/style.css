@@ -4,7 +4,7 @@
     --bg-card: #ffffff;        /* Latar belakang kartu (putih bersih) */
     --text-dark: #1e293b;      /* Warna teks judul (biru dongker gelap) */
     --text-muted: #64748b;     /* Warna teks paragraf (abu-abu) */
-    --accent: #4f46e5;         /* Warna aksen ungu/nila modern */
+    --accent: #b3e3f5;         /* Warna aksen ungu/nila modern */
     --shadow-card: 0 4px 6px rgba(0, 0, 0, 0.05); /* Bayangan kartu tipis */
     --shadow-hover: 0 15px 25px rgba(0, 0, 0, 0.08); /* Bayangan saat kartu disorot */
 }
