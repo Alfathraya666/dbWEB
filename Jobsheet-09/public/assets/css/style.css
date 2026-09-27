@@ -1,0 +1,458 @@
+/* ==========================================================================
+   AutoBekas Marketplace - Responsive & Mobile Hamburger CSS
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --bg-body: #f4f4f5;
+    --bg-surface: #ffffff;
+    --primary-dark: #09090b;
+    --primary-gray: #27272a;
+    --accent-red: #dc2626;
+    --accent-hover: #b91c1c;
+    --text-main: #18181b;
+    --text-muted: #71717a;
+    --border-color: #e4e4e7;
+    --radius-sharp: 4px;
+    --radius-card: 8px;
+    --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+/* --- HEADER & DESKTOP NAVIGATION --- */
+header {
+    background-color: var(--primary-dark);
+    color: #fff;
+    padding: 1.2rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid var(--accent-red);
+    position: relative;
+    top: 0;
+    z-index: 1000;
+}
+
+header h1 {
+    font-weight: 800;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+}
+
+header h1::first-letter {
+    color: var(--accent-red);
+}
+
+/* SEMBUNYIKAN HAMBURGER DI DESKTOP */
+.menu-toggle,
+.hamburger {
+    display: none !important;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.75rem;
+    align-items: center;
+}
+
+nav a {
+    color: #a1a1aa;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: 0.25s ease;
+    padding: 0.4rem 0;
+    position: relative;
+}
+
+nav a:hover {
+    color: #fff;
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: var(--accent-red);
+    transition: 0.25s ease;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+/* --- MAIN CONTAINER & RESPONSIVE LAYOUT --- */
+main {
+    max-width: 1140px;
+    margin: 2.5rem auto;
+    padding: 0 1.5rem;
+}
+
+section {
+    background: var(--bg-surface);
+    padding: 2rem;
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-soft);
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary-dark);
+    margin-bottom: 1.25rem;
+    position: relative;
+    padding-bottom: 8px;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 45px;
+    height: 3px;
+    background-color: var(--accent-red);
+}
+
+/* --- DASHBOARD CARDS (GRID DESKTOP) --- */
+section:has(article) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    background: transparent;
+    box-shadow: none;
+    border: none;
+    padding: 0;
+}
+
+section:has(article) h2 {
+    grid-column: 1 / -1;
+}
+
+article {
+    background: var(--bg-surface);
+    padding: 1.75rem;
+    border-radius: var(--radius-card);
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--accent-red);
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+article:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+article h3 {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+article p {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: var(--primary-dark);
+}
+
+/* --- FORM & TABLES --- */
+.table-responsive {
+    overflow-x: auto;
+    border-radius: var(--radius-card);
+    border: 1px solid var(--border-color);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--bg-surface);
+}
+
+th {
+    background-color: var(--primary-dark);
+    color: #fff;
+    padding: 0.9rem 1.2rem;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-align: left;
+}
+
+td {
+    padding: 0.9rem 1.2rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--primary-gray);
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+tbody tr:hover {
+    background-color: #f4f4f5;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sharp);
+    font-family: inherit;
+    font-size: 0.9rem;
+    margin-top: 0.35rem;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary-dark);
+}
+
+button, .btn {
+    font-family: inherit;
+    background-color: var(--primary-dark);
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: none;
+    border-radius: var(--radius-sharp);
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+button[type="submit"] {
+    background-color: var(--accent-red);
+}
+
+button[type="submit"]:hover {
+    background-color: var(--accent-hover);
+}
+
+button.btn-hapus {
+    background: transparent;
+    color: var(--accent-red);
+    border: 1px solid var(--accent-red);
+    padding: 0.4rem 0.8rem;
+}
+
+button.btn-hapus:hover {
+    background: var(--accent-red);
+    color: #fff;
+}
+
+td button:not(.btn-hapus) {
+    padding: 0.4rem 0.8rem;
+    margin-right: 0.25rem;
+}
+
+/* ==========================================================================
+   HAMBURGER (hidden di desktop)
+   ========================================================================== */
+.nav-toggle-label {
+    display: none;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.6rem;
+    line-height: 1;
+    padding: 0.25rem 0.5rem;
+    text-transform: none;
+}
+
+/* ==========================================================================
+   LAYOUT: footer nempel di bawah & rapi
+   ========================================================================== */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+    width: 100%;
+}
+
+footer {
+    text-align: center;
+    padding: 1.5rem 1rem;
+    margin-top: 1rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--border-color);
+    background: var(--bg-surface);
+}
+
+/* ==========================================================================
+   SEARCH BOX
+   ========================================================================== */
+.search-box {
+    margin-bottom: 1.25rem;
+}
+
+.search-box label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.search-box input {
+    max-width: 360px;
+}
+
+/* ==========================================================================
+   TABEL: rapihin baris kosong & kolom aksi
+   ========================================================================== */
+td[colspan] {
+    text-align: center;
+    color: var(--text-muted);
+    padding: 2rem 1rem;
+}
+
+td:last-child {
+    white-space: nowrap;
+}
+
+/* ==========================================================================
+   FORM
+   ========================================================================== */
+form {
+    max-width: 600px;
+}
+
+form p {
+    margin-bottom: 1.25rem;
+}
+
+form br {
+    display: none;
+}
+
+form label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary-gray);
+}
+
+.error {
+    display: block;
+    color: var(--accent-red);
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-top: 0.3rem;
+}
+
+/* ==========================================================================
+   FLASH MESSAGE (sukses / gagal)
+   ========================================================================== */
+.flash {
+    padding: 0.85rem 1rem;
+    margin-bottom: 1.25rem;
+    border-left: 4px solid;
+    border-radius: var(--radius-sharp);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.flash-success {
+    background: #f0fdf4;
+    color: #166534;
+    border-color: #22c55e;
+}
+
+.flash-error {
+    background: #fef2f2;
+    color: #991b1b;
+    border-color: var(--accent-red);
+}
+
+/* ==========================================================================
+   MOBILE (≤ 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+    header {
+        padding: 1rem 1.25rem;
+        flex-wrap: wrap;
+    }
+
+    header h1 {
+        font-size: 1.1rem;
+    }
+
+    .nav-toggle-label {
+        display: block;
+    }
+
+    nav {
+        display: none;
+        width: 100%;
+        margin-top: 1rem;
+        padding-top: 0.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    nav.nav-open {
+        display: block;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: stretch;
+    }
+
+    nav a {
+        display: block;
+        padding: 0.75rem 1rem;
+        background-color: rgba(255, 255, 255, 0.05);
+        border-radius: 4px;
+    }
+
+    nav a::after {
+        display: none;
+    }
+
+    main {
+        padding: 0 1rem;
+        margin: 1.5rem auto;
+    }
+
+    section {
+        padding: 1.25rem;
+    }
+
+    article p {
+        font-size: 1.75rem;
+    }
+
+    form {
+        max-width: 100%;
+    }
+}
