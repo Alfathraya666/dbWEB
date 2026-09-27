@@ -1,37 +1,29 @@
 <?php
-$page_title = "Tambah Pelanggan";
-include __DIR__ . '/../includes/header.php';
+$page_title = "Beranda";
+include __DIR__ . '/includes/header.php';
+require __DIR__ . '/includes/koneksi.php';
 
-$flash = $_SESSION['flash'] ?? null;
-unset($_SESSION['flash']);
+$totalMobil = (int) $pdo->query("SELECT COUNT(*) FROM mobil")->fetchColumn();
+$totalPelanggan = (int) $pdo->query("SELECT COUNT(*) FROM pelanggan")->fetchColumn();
 ?>
         <section>
-            <h2>Tambah Pelanggan Baru</h2>
-
-            <?php if ($flash): ?>
-                <p class="flash flash-<?php echo $flash['type']; ?>"><?php echo $flash['pesan']; ?></p>
-            <?php endif; ?>
-
-            <form id="form-tambah" method="post" action="proses_tambah.php">
-                <p>
-                    <label for="nama">Nama Lengkap</label><br>
-                    <input type="text" id="nama" name="nama" required>
-                </p>
-                <p>
-                    <label for="no_ktp">No. KTP</label><br>
-                    <input type="text" id="no_ktp" name="no_ktp" required>
-                </p>
-                <p>
-                    <label for="alamat">Alamat</label><br>
-                    <input type="text" id="alamat" name="alamat">
-                </p>
-                <p>
-                    <label for="no_hp">No. HP / WhatsApp</label><br>
-                    <input type="text" id="no_hp" name="no_hp">
-                </p>
-                <p>
-                    <button type="submit">Simpan Pelanggan</button>
-                </p>
-            </form>
+            <h2>Selamat Datang di AutoBekas Marketplace</h2>
+            <p>Your car reflects your standards. At AutoBekas, we meet them.</p>
         </section>
-<?php include __DIR__ . '/../includes/footer.php'; ?>
+
+        <section>
+            <h2>Dashboard</h2>
+            <article>
+                <h3>Total Mobil Tersedia</h3>
+                <p><?php echo $totalMobil; ?></p>
+            </article>
+            <article>
+                <h3>Total Pelanggan</h3>
+                <p><?php echo $totalPelanggan; ?></p>
+            </article>
+            <article>
+                <h3>Mobil Terjual</h3>
+                <p>0</p>
+            </article>
+        </section>
+<?php include __DIR__ . '/includes/footer.php'; ?>
