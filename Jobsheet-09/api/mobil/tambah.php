@@ -70,7 +70,7 @@ unset($_SESSION['flash']);
                 <p class="flash flash-<?php echo $flash['type']; ?>"><?php echo $flash['pesan']; ?></p>
             <?php endif; ?>
 
-            <form id="form-tambah" method="post" action="proses_tambah.php">
+            <form id="form-tambah" method="post" action="tambah.php">
                 <p>
                     <label for="merk">Merk Mobil</label><br>
                     <input type="text" id="merk" name="merk" placeholder="misal: Toyota, Honda" required>
