@@ -1,7 +1,11 @@
 <?php
 //proses tambah
-session_start();
-require __DIR__ . '/../includes/koneksi.php';
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    require __DIR__ . '/../includes/koneksi.php';
 
 $merk = trim($_POST['merk'] ?? '');
 $model = trim($_POST['model'] ?? '');
@@ -54,6 +58,7 @@ try {
     $_SESSION['flash'] = ['type' => 'error', 'pesan' => 'Gagal menyimpan: ' . $e->getMessage()];
     header('Location: tambah.php');
     exit;
+    }
 }
 
 //tambah

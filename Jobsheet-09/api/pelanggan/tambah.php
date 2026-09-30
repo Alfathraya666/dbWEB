@@ -28,10 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header('Location: tambah.php');
         exit;
     }
-} else {
-    header('Location: tambah.php');
-    exit;
-}
+} 
 
 //tambah
 $page_title = "Tambah Pelanggan";
