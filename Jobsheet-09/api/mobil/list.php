@@ -19,42 +19,39 @@ $daftarMobil = $pdo->query("SELECT * FROM mobil ORDER BY id DESC")->fetchAll(PDO
                 <input type="text" id="search-input" placeholder="Ketik merk atau model mobil...">
             </div>
 
-            <div class="table-responsive">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Merk</th>
-                        <th>Model</th>
-                        <th>Tahun</th>
-                        <th>Harga (Rp)</th>
-                        <th>Kilometer</th>
-                        <th>Kondisi</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php if (empty($daftarMobil)): ?>
-                    <tr>
-                        <td colspan="7">Belum ada data mobil. Silakan tambah lewat menu "Tambah Mobil".</td>
-                    </tr>
-                    <?php else: ?>
-                        <?php foreach ($daftarMobil as $mobil): ?>
-                        <tr>
-                            <td><?php echo htmlspecialchars($mobil['merk']); ?></td>
-                            <td><?php echo htmlspecialchars($mobil['model']); ?></td>
-                            <td><?php echo $mobil['tahun']; ?></td>
-                            <td>Rp <?php echo number_format($mobil['harga'], 0, ',', '.'); ?></td>
-                            <td><?php echo number_format($mobil['kilometer'], 0, ',', '.'); ?> km</td>
-                            <td><?php echo htmlspecialchars($mobil['kondisi']); ?></td>
-                            <td>
+                        <div class="car-grid">
+                <?php if (empty($daftarMobil)): ?>
+                    <p class="empty-state">Belum ada data mobil. Silakan tambah lewat menu "Tambah Mobil".</p>
+                <?php else: ?>
+                    <?php foreach ($daftarMobil as $i => $mobil):
+                        $fotoClass = ['car-photo-a', 'car-photo-b', 'car-photo-c'][$i % 3];
+                        $badgeClass = match($mobil['kondisi']) {
+                            'Sangat Baik' => 'badge-baik',
+                            'Baik' => 'badge-cukup',
+                            default => 'badge-rusak',
+                        };
+                    ?>
+                    <div class="car-card">
+                        <div class="car-photo <?php echo $fotoClass; ?>">
+                            <span><?php echo htmlspecialchars($mobil['merk']); ?></span>
+                            <div class="price-tag">Rp <?php echo number_format($mobil['harga'], 0, ',', '.'); ?></div>
+                        </div>
+                        <div class="car-body">
+                            <h3><?php echo htmlspecialchars($mobil['merk'] . ' ' . $mobil['model']); ?></h3>
+                            <div class="car-stats">
+                                <span><?php echo $mobil['tahun']; ?></span>
+                                <span>&middot;</span>
+                                <span><?php echo number_format($mobil['kilometer'], 0, ',', '.'); ?> km</span>
+                            </div>
+                            <span class="badge <?php echo $badgeClass; ?>"><?php echo htmlspecialchars($mobil['kondisi']); ?></span>
+                            <div class="car-actions">
                                 <button type="button" onclick="window.location.href='edit.php?id=<?php echo $mobil['id']; ?>'">Edit</button>
                                 <button type="button" class="btn-hapus" data-id="<?php echo $mobil['id']; ?>">Hapus</button>
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                </tbody>
-            </table>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </div>
         </section>
 <?php include __DIR__ . '/../includes/footer.php'; ?>

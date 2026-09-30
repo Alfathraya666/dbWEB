@@ -27,7 +27,6 @@ if (getenv('VERCEL')) {
 <body>
     <header>
         <h1>AutoBekas Marketplace</h1>
-        <button type="button" id="nav-toggle-btn" class="nav-toggle-label" aria-label="Menu">&#9776;</button>
         <nav>
             <ul>
                 <li><a href="<?php echo $base; ?>index.php">Beranda</a></li>

@@ -102,6 +102,19 @@ function initValidasiForm() {
         }
     });
 }
+function initTableFilter() {
+    const input = document.getElementById("search-input");
+    const cards = document.querySelectorAll(".car-card, .customer-card");
+    if (!input || cards.length === 0) return;
+
+    input.addEventListener("keyup", function () {
+        const keyword = input.value.toLowerCase();
+        cards.forEach(function (card) {
+            const teks = card.textContent.toLowerCase();
+            card.style.display = teks.includes(keyword) ? "" : "none";
+        });
+    });
+}
 
 document.addEventListener("DOMContentLoaded", function () {
     initNavToggle();

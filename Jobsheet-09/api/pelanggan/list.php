@@ -19,37 +19,26 @@ $daftarPelanggan = $pdo->query("SELECT * FROM pelanggan ORDER BY id DESC")->fetc
                 <input type="text" id="search-input" placeholder="Ketik nama pelanggan...">
             </div>
 
-            <div class="table-responsive">
-            <table>
-                <thead>
-                    <tr>
-                        <th>No. KTP</th>
-                        <th>Nama</th>
-                        <th>Alamat</th>
-                        <th>No. HP</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php if (empty($daftarPelanggan)): ?>
-                    <tr>
-                        <td colspan="5">Belum ada data pelanggan. Silakan tambah lewat menu "Tambah Pelanggan".</td>
-                    </tr>
-                    <?php else: ?>
-                        <?php foreach ($daftarPelanggan as $pelanggan): ?>
-                        <tr>
-                            <td><?php echo htmlspecialchars($pelanggan['no_ktp']); ?></td>
-                            <td><?php echo htmlspecialchars($pelanggan['nama']); ?></td>
-                            <td><?php echo htmlspecialchars($pelanggan['alamat']); ?></td>
-                            <td><?php echo htmlspecialchars($pelanggan['no_hp']); ?></td>
-                            <td>
-                                <button type="button" onclick="window.location.href='edit.php?id=<?php echo $pelanggan['id']; ?>'"?>Edit</button>
-                                <button type="button" class="btn-hapus" data-id="<?php echo $pelanggan['id']; ?>">Hapus</button>
-                        </tr>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                </tbody>
-            </table>
+            <div class="customer-grid">
+                <?php if (empty($daftarPelanggan)): ?>
+                    <p class="empty-state">Belum ada data pelanggan. Silakan tambah lewat menu "Tambah Pelanggan".</p>
+                <?php else: ?>
+                    <?php foreach ($daftarPelanggan as $p): ?>
+                    <div class="customer-card">
+                        <div class="avatar"><?php echo strtoupper(substr($p['nama'], 0, 1)); ?></div>
+                        <div class="customer-info">
+                            <h3><?php echo htmlspecialchars($p['nama']); ?></h3>
+                            <p>KTP: <?php echo htmlspecialchars($p['no_ktp']); ?></p>
+                            <p><?php echo htmlspecialchars($p['alamat']); ?></p>
+                            <p><?php echo htmlspecialchars($p['no_hp']); ?></p>
+                            <div class="customer-actions">
+                        <button type="button" onclick="window.location.href='edit.php?id=<?php echo $p['id']; ?>'">Edit</button>
+                        <button type="button" class="btn-hapus" data-id="<?php echo $p['id']; ?>">Hapus</button>
+                    </div>
+                </div>
             </div>
-        </section>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </div>
+</section>
 <?php include __DIR__ . '/../includes/footer.php'; ?>
