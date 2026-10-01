@@ -1,0 +1,31 @@
+<?php
+require __DIR__ . '/includes/auth.php';
+require_login();
+
+$page_title = "Beranda";
+include __DIR__ . '/includes/header.php';
+
+$totalMobil = (int) $pdo->query("SELECT COUNT(*) FROM mobil")->fetchColumn();
+$totalPelanggan = (int) $pdo->query("SELECT COUNT(*) FROM pelanggan")->fetchColumn();
+?>
+        <section>
+            <h2>Selamat Datang di AutoBekas Marketplace</h2>
+            <p>Halo, <?php echo htmlspecialchars($_SESSION['nama'] ?? ''); ?>. Your car reflects your standards. At AutoBekas, we meet them.</p>
+        </section>
+
+        <section>
+            <h2>Dashboard</h2>
+            <article>
+                <h3>Total Mobil Tersedia</h3>
+                <p><?php echo $totalMobil; ?></p>
+            </article>
+            <article>
+                <h3>Total Pelanggan</h3>
+                <p><?php echo $totalPelanggan; ?></p>
+            </article>
+            <article>
+                <h3>Mobil Terjual</h3>
+                <p>0</p>
+            </article>
+        </section>
+<?php include __DIR__ . '/includes/footer.php'; ?>
