@@ -1,6 +1,6 @@
 <?php
-session_start();
-require __DIR__ . '/../includes/koneksi.php';
+require __DIR__ . '/../includes/auth.php';
+require_login();
 
 $id = $_GET['id'] ?? null;
 if (!$id) {
@@ -28,7 +28,7 @@ unset($_SESSION['flash']);
             <h2>Edit Data Pelanggan</h2>
 
             <?php if ($flash): ?>
-                <p class="flash flash-<?php echo $flash['type']; ?>"><?php echo $flash['pesan']; ?></p>
+                <p class="flash flash-<?php echo $flash['type']; ?>"><?php echo htmlspecialchars($flash['pesan']); ?></p>
             <?php endif; ?>
 
             <form id="form-tambah" method="post" action="proses_edit.php">
@@ -43,11 +43,11 @@ unset($_SESSION['flash']);
                 </p>
                 <p>
                     <label for="alamat">Alamat</label><br>
-                    <input type="text" id="alamat" name="alamat" value="<?php echo htmlspecialchars($pelanggan['alamat']); ?>">
+                    <input type="text" id="alamat" name="alamat" value="<?php echo htmlspecialchars($pelanggan['alamat'] ?? ''); ?>">
                 </p>
                 <p>
                     <label for="no_hp">No. HP / WhatsApp</label><br>
-                    <input type="text" id="no_hp" name="no_hp" value="<?php echo htmlspecialchars($pelanggan['no_hp']); ?>">
+                    <input type="text" id="no_hp" name="no_hp" value="<?php echo htmlspecialchars($pelanggan['no_hp'] ?? ''); ?>">
                 </p>
                 <p>
                     <button type="submit">Update Pelanggan</button>

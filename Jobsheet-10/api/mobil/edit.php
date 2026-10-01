@@ -1,25 +1,25 @@
 <?php
-session_start();
-require __DIR__ . '/../includes/koneksi.php';
+require __DIR__ . '/../includes/auth.php';
+require_login();
 
 $id = $_GET['id'] ?? null;
 if (!$id) {
-    header('location: list.php');
+    header('Location: list.php');
     exit;
 }
 
 $stmt = $pdo->prepare("SELECT * FROM mobil WHERE id = :id");
 $stmt->execute([':id' => $id]);
-$mobil = $stmt ->fetch(PDO :: FETCH_ASSOC);
+$mobil = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$mobil) {
-    $_SESSION['flash'] = ['type' => 'error', 'pesan' => 'Data mobil tidak ditemukan. '];
+    $_SESSION['flash'] = ['type' => 'error', 'pesan' => 'Data mobil tidak ditemukan.'];
     header('Location: list.php');
     exit;
 }
 
-$page_tittle = "Edit Mobil";
-include __DIR__ . './../includes/header.php';
+$page_title = "Edit Mobil";
+include __DIR__ . '/../includes/header.php';
 
 $flash = $_SESSION['flash'] ?? null;
 unset($_SESSION['flash']);
@@ -28,14 +28,14 @@ unset($_SESSION['flash']);
             <h2>Edit Data Mobil</h2>
 
             <?php if ($flash): ?>
-                <p class="flash flash-<php echo $flash['type]; ?>"><?php echo $flash['pesan']; ?></p>
-                <?php endif; ?>
+                <p class="flash flash-<?php echo $flash['type']; ?>"><?php echo htmlspecialchars($flash['pesan']); ?></p>
+            <?php endif; ?>
 
-                <form id="form-tambah" method="post" action="proses_edit.php">
+            <form id="form-tambah" method="post" action="proses_edit.php">
                 <input type="hidden" name="id" value="<?php echo htmlspecialchars($mobil['id']); ?>">
                 <p>
                     <label for="merk">Merk Mobil</label><br>
-                    <input type="text" id="Merk" name="merk" value="<?php echo htmlspecialchars($mobil['merk']); ?>" required>
+                    <input type="text" id="merk" name="merk" value="<?php echo htmlspecialchars($mobil['merk']); ?>" required>
                 </p>
                 <p>
                     <label for="model">Model / Tipe</label><br>
@@ -60,10 +60,10 @@ unset($_SESSION['flash']);
                         <option value="<?php echo $opsi; ?>" <?php echo ($mobil['kondisi'] === $opsi) ? 'selected' : ''; ?>><?php echo $opsi; ?></option>
                         <?php endforeach; ?>
                     </select>
-                </p> 
+                </p>
                 <p>
-                   <button type="submit">Update Data Mobil</button>
+                    <button type="submit">Update Data Mobil</button>
                 </p>
             </form>
         </section>
-<?php include __DIR__ . '/../includes/footer.php'; ?> 
+<?php include __DIR__ . '/../includes/footer.php'; ?>

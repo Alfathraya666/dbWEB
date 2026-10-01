@@ -1,6 +1,6 @@
 <?php
-session_start();
-require __DIR__ . '/../includes/koneksi.php';
+require __DIR__ . '/../includes/auth.php';
+require_login();
 
 $id        = $_POST['id'] ?? null;
 $merk      = trim($_POST['merk'] ?? '');

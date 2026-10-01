@@ -1,6 +1,6 @@
 <?php
-session_start();
-require __DIR__ . '/../includes/koneksi.php';
+require __DIR__ . '/../includes/auth.php';
+require_login();
 
 $id = $_GET['id'] ?? null;
 if (!$id) {
