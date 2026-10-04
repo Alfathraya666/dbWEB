@@ -1,17 +1,14 @@
 {
   "functions": {
-    "api/**/*.php": {
-      "runtime": "vercel-php@0.7.3"
+    "api/index.php": {
+      "runtime": "vercel-php@0.7.3",
+      "includeFiles": "{index.php,auth/**,mobil/**,pelanggan/**,includes/**}"
     }
   },
   "rewrites": [
-    {
-      "source": "/",
-      "destination": "/api/index.php"
-    },
-    {
-      "source": "/(.*\\.php)",
-      "destination": "/api/$1"
-    }
+    { "source": "/", "destination": "/api/index.php" },
+    { "source": "/auth/:path*", "destination": "/api/index.php" },
+    { "source": "/mobil/:path*", "destination": "/api/index.php" },
+    { "source": "/pelanggan/:path*", "destination": "/api/index.php" }
   ]
 }
