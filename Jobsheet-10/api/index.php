@@ -1,5 +1,8 @@
 <?php
 
+echo '<pre>';
+print_r(scandir(__DIR__ . '/..'));
+exit;
 // ============================================================
 // AutoBekas — Single Vercel Serverless Function Router
 // Semua request PHP diarahkan ke file yang sesuai.
