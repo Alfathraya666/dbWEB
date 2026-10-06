@@ -815,6 +815,11 @@ form textarea {
    HAMBURGER MENU
    ========================================================= */
 
+   /* menyembunyikan text box */
+   .nav-toggle {
+    display : none;
+}
+
 .nav-toggle-label {
 
     /*
@@ -870,7 +875,9 @@ form textarea {
         position: relative;
     }
 
-
+    .nav-toggle-label {
+        display : block;
+    }
     /*
        Kalau JavaScript menambahkan class nav-open,
        menu ditampilkan.
