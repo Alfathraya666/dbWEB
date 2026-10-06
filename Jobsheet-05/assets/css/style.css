@@ -77,8 +77,8 @@ section h2 {
 
 /* ===== Kartu Statistik (CSS Grid) ===== */
 main section:nth-of-type(2) {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-direction : column;
     gap: 1rem;
 }
 
@@ -86,6 +86,8 @@ main section:nth-of-type(2) article {
     background-color: #f5eadb;
     border-radius: 10px;
     padding: 1.25rem;
+    width : 100%;
+    min-height : 100px;
     text-align: center;
     transition: transform 0.2s ease, background-color 0.2s ease;
 }
@@ -368,6 +370,10 @@ form textarea:focus {
     color: #5c5146;
 }
 
+.nav-toggle {
+    display : none;
+}
+
 .nav-toggle-label {
     display: none;
     font-size: 1.6rem;
@@ -389,6 +395,9 @@ form textarea:focus {
     position: relative;
 }
 
+.nav-toggle-label {
+    display : block;
+    }
  header nav.nav-open {
     display: block;
 }
