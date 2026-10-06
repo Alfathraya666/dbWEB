@@ -1,262 +1,691 @@
-/* ===== Reset & Base ===== */
+/* =========================================================
+   RESET & BASE
+   ========================================================= */
+
+/* Mengatur semua elemen agar box-sizing lebih mudah dihitung */
 * {
     box-sizing: border-box;
+
+    /* Menghilangkan margin bawaan browser */
     margin: 0;
+
+    /* Menghilangkan padding bawaan browser */
     padding: 0;
 }
 
+
+/* Tampilan dasar seluruh halaman */
 body {
+    /* Jenis font yang digunakan */
     font-family: "Segoe UI", Arial, sans-serif;
+
+    /* Warna teks */
     color: #4a4036;
+
+    /* Warna background halaman */
     background-color: #faf7f2;
+
+    /* Jarak antar baris teks */
     line-height: 1.5;
 }
 
+
+/* Semua link <a> */
 a {
     color: #9a6b3f;
+
+    /* Menghilangkan garis bawah link */
     text-decoration: none;
+
+    /* Perubahan warna dibuat lebih halus */
     transition: color 0.2s ease;
 }
 
+
+/* Saat mouse diarahkan ke link */
 a:hover {
     color: #c08a58;
+
+    /* Menampilkan garis bawah */
     text-decoration: underline;
 }
 
-/* ===== Header & Navbar (Flexbox) ===== */
+
+/* =========================================================
+   HEADER & NAVBAR
+   ========================================================= */
+
 header {
+    /* Warna background header */
     background-color: #a9784f;
+
+    /* Warna tulisan di header */
     color: #fffaf3;
+
+    /* Jarak isi header dengan batas luar */
     padding: 1rem 1.5rem;
+
+    /*
+       FLEXBOX
+
+       display: flex membuat isi header
+       bisa diatur menggunakan sistem Flexbox.
+    */
     display: flex;
+
+    /*
+       align-items mengatur posisi secara VERTIKAL.
+
+       center = isi berada di tengah secara vertikal.
+    */
     align-items: center;
+
+    /*
+       justify-content mengatur posisi secara HORIZONTAL.
+
+       space-between = elemen pertama di kiri,
+       elemen terakhir di kanan.
+    */
     justify-content: space-between;
+
+    /*
+       Kalau layar terlalu kecil,
+       elemen boleh turun ke baris berikutnya.
+    */
     flex-wrap: wrap;
 }
 
+
+/* Judul SIMPUS-Mini */
 header h1 {
     font-size: 1.4rem;
 }
 
+
+/* Daftar menu navbar */
 header nav ul {
+    /* Menghilangkan bullet bawaan <ul> */
     list-style: none;
+
+    /*
+       Membuat menu menjadi horizontal.
+       Karena parent-nya menggunakan Flexbox.
+    */
     display: flex;
+
+    /*
+       Jarak antar menu.
+    */
     gap: 1.25rem;
 }
 
+
+/* Link di navbar */
 header nav a {
     color: #fffaf3;
+
+    /* Membuat teks sedikit lebih tebal */
     font-weight: 500;
+
     transition: opacity 0.2s ease;
 }
 
+
+/* Efek saat mouse diarahkan ke menu */
 header nav a:hover {
     opacity: 0.75;
 }
 
-/* ===== Main Layout ===== */
+
+/* =========================================================
+   MAIN LAYOUT
+   ========================================================= */
+
 main {
+    /*
+       Lebar maksimal konten.
+
+       Walaupun layar sangat besar,
+       konten tidak akan lebih dari 1000px.
+    */
     max-width: 1000px;
+
+    /*
+       margin:
+       atas-bawah = 2rem
+       kiri-kanan = auto
+
+       auto membuat main berada di tengah.
+    */
     margin: 2rem auto;
+
+    /*
+       Memberikan jarak antara isi main
+       dengan sisi kiri-kanan.
+    */
     padding: 0 1.5rem;
 }
 
+
+/*
+   Setiap <section> dibuat seperti card.
+*/
 section {
+    /* Warna card */
     background-color: #fffdf9;
+
+    /* Membuat sudut card melengkung */
     border-radius: 10px;
+
+    /* Jarak isi card dengan pinggir card */
     padding: 1.5rem;
+
+    /* Jarak antar section */
     margin-bottom: 1.5rem;
+
+    /* Bayangan card */
     box-shadow: 0 2px 8px rgba(120, 90, 60, 0.08);
-    
 }
 
+
+/* Judul setiap section */
 section h2 {
     margin-bottom: 1rem;
+
     color: #8b5e3c;
 }
 
-/* ===== Kartu Statistik (CSS Grid) ===== */
+
+/* =========================================================
+   BAGIAN RINGKASAN
+   =========================================================
+
+   BAGIAN INI YANG PALING PENTING UNTUK PERUBAHAN
+   LAYOUT TOTAL BUKU, TOTAL ANGGOTA, DAN DIPINJAM.
+   */
+
+
+/*
+   Pada HTML:
+
+   <section>
+       <h2>Ringkasan</h2>
+
+       <article>...</article>
+       <article>...</article>
+       <article>...</article>
+   </section>
+
+   nth-of-type(2) artinya:
+   pilih <section> KEDUA di dalam <main>.
+*/
 main section:nth-of-type(2) {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+
+    /*
+       Mengaktifkan Flexbox.
+    */
+    display: flex;
+
+    /*
+       DEFAULT FLEX biasanya horizontal.
+
+       row  = kiri ke kanan
+
+       Kita ubah menjadi column
+       agar card tersusun dari ATAS KE BAWAH.
+    */
+    flex-direction: column;
+
+    /*
+       Jarak antar article.
+    */
     gap: 1rem;
 }
 
+
+/*
+   Setiap <article> di bagian Ringkasan.
+*/
 main section:nth-of-type(2) article {
+
+    /*
+       Warna background card.
+    */
     background-color: #f5eadb;
+
+    /*
+       Membuat sudut card melengkung.
+    */
     border-radius: 10px;
-    padding: 1.25rem;
-    text-align: center;
-    transition: transform 0.2s ease, background-color 0.2s ease;
+
+    /*
+       width 100% berarti card memenuhi
+       seluruh lebar section.
+    */
+    width: 100%;
+
+    /*
+       Tinggi minimal card.
+
+       Semakin besar nilainya,
+       semakin tinggi persegi panjangnya.
+    */
+    min-height: 100px;
+
+    /*
+       Jarak antara isi article
+       dengan batas article.
+    */
+    padding: 1.25rem 1.5rem;
+
+
+    /*
+       Membuat isi article menggunakan Flexbox.
+    */
+    display: flex;
+
+
+    /*
+       Mengatur posisi isi secara VERTIKAL.
+
+       center = teks dan angka berada di tengah.
+    */
+    align-items: center;
+
+
+    /*
+       Mengatur posisi isi secara HORIZONTAL.
+
+       space-between:
+
+       "Total Buku" → kiri
+
+       "12" → kanan
+    */
+    justify-content: space-between;
+
+
+    /*
+       Animasi saat card disentuh mouse.
+    */
+    transition:
+        transform 0.2s ease,
+        background-color 0.2s ease;
 }
 
+
+/*
+   Efek ketika mouse berada di atas card.
+*/
 main section:nth-of-type(2) article:hover {
-    transform: translateY(-3px);
+
+    /*
+       Card bergerak sedikit ke kanan.
+
+       translateX(5px)
+       = bergerak horizontal 5px.
+    */
+    transform: translateX(5px);
+
+    /* Warna berubah sedikit */
     background-color: #f1dfc8;
 }
 
+
+/*
+   Judul di dalam card:
+
+   Total Buku
+   Total Anggota
+   Sedang Dipinjam
+*/
 main section:nth-of-type(2) article h3 {
-    font-size: 0.95rem;
+
+    /* Ukuran tulisan */
+    font-size: 1rem;
+
+    /* Warna tulisan */
     color: #806f5d;
-    margin-bottom: 0.5rem;
+
+    /*
+       Menghilangkan margin bawaan.
+    */
+    margin: 0;
 }
 
+
+/*
+   Angka:
+
+   12
+   8
+   3
+*/
 main section:nth-of-type(2) article p {
-    font-size: 1.8rem;
+
+    /* Ukuran angka */
+    font-size: 2rem;
+
+    /* Membuat angka tebal */
     font-weight: 700;
+
+    /* Warna angka */
     color: #8b5e3c;
+
+    /* Menghilangkan margin bawaan */
+    margin: 0;
 }
 
-/* ===== Tabel ===== */
+
+/* =========================================================
+   TABEL
+   ========================================================= */
+
 table {
+    /*
+       Lebar tabel mengikuti container.
+    */
     width: 100%;
+
+    /*
+       Menggabungkan border antar cell.
+    */
     border-collapse: collapse;
 }
 
-th, td {
+
+th,
+td {
+    /*
+       Isi cell rata kiri.
+    */
     text-align: left;
+
+    /*
+       Jarak isi dengan batas cell.
+    */
     padding: 0.65rem 0.75rem;
+
+    /*
+       Garis bawah setiap baris.
+    */
     border-bottom: 1px solid #e8ded1;
 }
 
+
+/* Header tabel */
 thead {
     background-color: #a9784f;
     color: #fffaf3;
 }
 
+
+/*
+   Baris genap diberi warna berbeda.
+
+   nth-child(even)
+   = memilih baris ke-2, 4, 6, dst.
+*/
 tbody tr:nth-child(even) {
     background-color: #fcf8f2;
 }
 
+
+/* Efek ketika mouse berada di baris tabel */
 tbody tr:hover {
     background-color: #f5eadb;
 }
 
-/* ===== Button ===== */
+
+/* =========================================================
+   BUTTON
+   ========================================================= */
+
 td button {
     padding: 0.35rem 0.7rem;
+
+    /* Jarak kanan antar tombol */
     margin-right: 0.35rem;
+
+    /* Menghilangkan border default */
     border: none;
+
+    /* Sudut tombol */
     border-radius: 5px;
+
+    /* Cursor berubah menjadi tangan */
     cursor: pointer;
+
     font-size: 0.85rem;
-    transition: transform 0.2s ease, opacity 0.2s ease;
+
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
 }
 
+
 td button:hover {
+    /*
+       Tombol naik sedikit ketika disentuh mouse.
+    */
     transform: translateY(-1px);
+
+    /*
+       Sedikit transparan.
+    */
     opacity: 0.85;
 }
 
+
+/*
+   Tombol pertama di tabel = Edit
+*/
 td button:first-of-type {
     background-color: #d69a4c;
     color: #fff;
 }
 
+
+/*
+   Tombol terakhir = Hapus
+*/
 td button:last-of-type {
     background-color: #c96f5b;
     color: #fff;
 }
 
-/* ===== Form ===== */
+
+/* =========================================================
+   FORM
+   ========================================================= */
+
 form p {
     margin-bottom: 1rem;
 }
 
+
 form label {
+    /*
+       Label dibuat satu baris sendiri.
+    */
     display: block;
+
     margin-bottom: 0.35rem;
+
     font-weight: 600;
+
     color: #5c5146;
 }
 
+
 form input,
 form select {
+    /*
+       Lebar input mengikuti container.
+    */
     width: 100%;
+
+    /*
+       Tetapi maksimal hanya 400px.
+    */
     max-width: 400px;
+
     padding: 0.55rem 0.7rem;
+
     border: 1px solid #d8cabb;
+
     border-radius: 5px;
+
     font-size: 1rem;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
+
+/*
+   Saat input sedang diklik.
+*/
 form input:focus,
 form select:focus {
+
+    /* Menghilangkan outline default browser */
     outline: none;
+
+    /* Mengubah warna border */
     border-color: #b8895f;
+
+    /* Memberikan efek glow */
     box-shadow: 0 0 0 3px rgba(184, 137, 95, 0.15);
 }
 
+
+/* Tombol Simpan */
 form button[type="submit"] {
     background-color: #a9784f;
     color: #fffaf3;
+
     border: none;
+
     padding: 0.6rem 1.5rem;
+
     border-radius: 5px;
+
     font-size: 1rem;
+
     cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.2s ease;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
 }
+
 
 form button[type="submit"]:hover {
     background-color: #8b5e3c;
+
     transform: translateY(-1px);
 }
 
-/* ===== Footer ===== */
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
 footer {
+    /* Tulisan berada di tengah */
     text-align: center;
+
     padding: 1.25rem;
+
     color: #8a7b6c;
+
     font-size: 0.9rem;
 }
-/* ===== Halaman Daftar Buku & Anggota ===== */
+
+
+/* =========================================================
+   HALAMAN DAFTAR BUKU & ANGGOTA
+   ========================================================= */
 
 .action-bar {
+    /*
+       Membuat isi action bar menggunakan Flexbox.
+    */
     display: flex;
+
     align-items: center;
+
+    /*
+       Elemen pertama ke kiri,
+       elemen terakhir ke kanan.
+    */
     justify-content: space-between;
+
     margin-bottom: 1rem;
 }
+
 
 .action-bar h2 {
     margin-bottom: 0;
 }
 
+
 .action-bar a {
     background-color: #a9784f;
+
     color: #fffaf3;
+
     padding: 0.55rem 1rem;
+
     border-radius: 5px;
 }
 
+
 .action-bar a:hover {
     background-color: #8b5e3c;
+
     color: #fffaf3;
+
     text-decoration: none;
 }
 
 
-/* ===== Tabel Responsif ===== */
+/* =========================================================
+   TABEL RESPONSIVE
+   ========================================================= */
 
 .table-responsive {
+
+    /*
+       Lebar mengikuti parent.
+    */
     width: 100%;
+
+    /*
+       Kalau tabel terlalu lebar,
+       muncul scroll horizontal.
+    */
     overflow-x: auto;
 }
 
 
-/* ===== Tombol Aksi ===== */
+/* =========================================================
+   TOMBOL AKSI
+   ========================================================= */
 
 .btn-edit {
     background-color: #d69a4c;
     color: #fff;
 }
 
+
 .btn-delete {
     background-color: #c96f5b;
     color: #fff;
 }
+
 
 .btn-edit:hover,
 .btn-delete:hover {
@@ -264,183 +693,302 @@ footer {
 }
 
 
-/* ===== Halaman Form ===== */
+/* =========================================================
+   FORM CONTAINER
+   ========================================================= */
 
 .form-container {
+
+    /*
+       Lebar maksimal form.
+    */
     max-width: 700px;
+
+    /*
+       Form berada di tengah.
+    */
     margin: 0 auto;
 }
+
 
 .form-container h2 {
     margin-bottom: 1.5rem;
 }
 
+
 form {
     width: 100%;
 }
 
-form p {
-    margin-bottom: 1rem;
-}
-
-form label {
-    display: block;
-    margin-bottom: 0.35rem;
-    font-weight: 600;
-    color: #5c5146;
-}
-
-form input,
-form select,
-form textarea {
-    width: 100%;
-    max-width: 400px;
-    padding: 0.55rem 0.7rem;
-    border: 1px solid #d8cabb;
-    border-radius: 5px;
-    font-size: 1rem;
-    font-family: inherit;
-    background-color: #fff;
-}
 
 form textarea {
     min-height: 100px;
+
+    /*
+       User boleh mengubah tinggi textarea
+       secara vertikal.
+    */
     resize: vertical;
 }
 
-form input:focus,
-form select:focus,
-form textarea:focus {
-    outline: none;
-    border-color: #b8895f;
-    box-shadow: 0 0 0 3px rgba(184, 137, 95, 0.15);
-}
 
-
-/* ===== Tombol Form ===== */
+/* =========================================================
+   TOMBOL FORM
+   ========================================================= */
 
 .form-buttons {
+
     display: flex;
+
     gap: 0.5rem;
+
     margin-top: 1.25rem;
 }
 
+
 .form-buttons button,
 .form-buttons a {
+
     padding: 0.6rem 1.5rem;
+
     border-radius: 5px;
+
     border: none;
+
     font-size: 1rem;
+
     cursor: pointer;
 }
+
 
 .form-buttons button {
     background-color: #a9784f;
     color: #fffaf3;
 }
 
+
 .form-buttons button:hover {
     background-color: #8b5e3c;
 }
+
 
 .form-buttons a {
     background-color: #8a7b6c;
     color: #fffaf3;
 }
 
+
 .form-buttons a:hover {
     background-color: #6f6357;
+
     text-decoration: none;
 }
 
 
-/* ===== Informasi / Deskripsi ===== */
+/* =========================================================
+   INFORMASI / DESKRIPSI
+   ========================================================= */
 
 .info {
+
     background-color: #f5eadb;
+
+    /*
+       Garis di sebelah kiri.
+    */
     border-left: 4px solid #a9784f;
+
     padding: 1rem;
+
     margin-bottom: 1.5rem;
+
     border-radius: 5px;
 }
+
 
 .info p {
     color: #5c5146;
 }
 
+
+/* =========================================================
+   HAMBURGER MENU
+   ========================================================= */
+
 .nav-toggle-label {
+
+    /*
+       Default-nya disembunyikan.
+
+       Nanti akan ditampilkan pada layar kecil.
+    */
     display: none;
+
     font-size: 1.6rem;
+
     color: #fff;
-    background : none;
+
+    background: none;
+
     border: none;
+
     cursor: pointer;
 }
 
-/* Tablet kebahwa */
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
 @media (max-width: 768px) {
-    main section:nth-of-type(2) {
-        grid-template-columns: repeat(2, 1fr);
+
+    /*
+       Padding main diperkecil
+       supaya lebih cocok di tablet.
+    */
+    main {
+        padding: 0 1rem;
+    }
+
+
+    /*
+       Tinggi card Ringkasan sedikit diperkecil.
+    */
+    main section:nth-of-type(2) article {
+        min-height: 90px;
     }
 }
 
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
 @media (max-width: 480px) {
+
     header {
-    position: relative;
-}
+        position: relative;
+    }
 
- header nav.nav-open {
-    display: block;
-}
 
-header nav {
-    display: none;
-    width: 100%;
-    order: 3;
-    margin-top: 1rem;
-}
+    /*
+       Kalau JavaScript menambahkan class nav-open,
+       menu ditampilkan.
+    */
+    header nav.nav-open {
+        display: block;
+    }
 
-/* pesan error validasi */
-.error {
-    display: block;
-    color: d9534f;
-    font-size: 0.85rem;
-    margin-top: 0.25rem;
-}
 
-/*Kolom search Baru (NEW) */
-.search-box {
-    margin-bottom: 1rem;
-}
+    /*
+       Pada HP, navbar awalnya disembunyikan.
+    */
+    header nav {
+        display: none;
 
-.seacrh-box input {
-    width: 100%;
-    max-width: 320px;
-    padding: 0.5rem 0,75rem;
-    border: 1px solid #cdd4da;
-    border-radius: 4px;
-}
+        width: 100%;
 
-.nav-toggle:checked ~ nav {
-    display: block;
-}
+        order: 3;
 
-header nav ul {
-    flex-direction: column;
-    gap: 0.75rem;
-}
+        margin-top: 1rem;
+    }
 
-main section:nth-of-type(2) {
-        grid-template-columns: 1fr;
-}
-/* ===== Tabel Responsif ===== */
-.table-responsive {
-    overflow-x: auto;
-}
-}
 
-form input,
-form select {
-    max-width: 100%;
-}
+    /*
+       Menu navbar pada HP dibuat vertikal.
+    */
+    header nav ul {
+        flex-direction: column;
 
+        gap: 0.75rem;
+    }
+
+
+    /* Pesan error validasi */
+    .error {
+        display: block;
+
+        color: #d9534f;
+
+        font-size: 0.85rem;
+
+        margin-top: 0.25rem;
+    }
+
+
+    /* Search */
+    .search-box {
+        margin-bottom: 1rem;
+    }
+
+
+    .search-box input {
+        width: 100%;
+
+        max-width: 320px;
+
+        padding: 0.5rem 0.75rem;
+
+        border: 1px solid #cdd4da;
+
+        border-radius: 4px;
+    }
+
+
+    /*
+       Checkbox hamburger menu.
+
+       Kalau checkbox dicentang,
+       navbar ditampilkan.
+    */
+    .nav-toggle:checked ~ nav {
+        display: block;
+    }
+
+
+    /*
+       Jarak antar card Ringkasan
+       dibuat sedikit lebih kecil di HP.
+    */
+    main section:nth-of-type(2) {
+        gap: 0.75rem;
+    }
+
+
+    /*
+       Card Ringkasan dibuat sedikit lebih pendek
+       agar nyaman dilihat di HP.
+    */
+    main section:nth-of-type(2) article {
+
+        min-height: 80px;
+
+        padding: 1rem;
+    }
+
+
+    /*
+       Ukuran angka diperkecil di HP.
+    */
+    main section:nth-of-type(2) article p {
+        font-size: 1.6rem;
+    }
+
+
+    /*
+       Tabel bisa di-scroll ke samping
+       jika terlalu lebar.
+    */
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+
+    /*
+       Input form memenuhi lebar HP.
+    */
+    form input,
+    form select {
+        max-width: 100%;
+    }
+}
