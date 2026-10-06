@@ -1,4 +1,32 @@
 <?php
+// ===== PINTU MASUK TUNGGAL =====
+// vercel.json mengirim semua URL ke file ini, jadi di sini kita
+// tentukan file mana yang harus dijalankan sesuai URL yang dibuka.
+$path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
+$path = '/' . trim(rawurldecode((string) $path), '/');   // contoh: /auth/login.php
+
+if ($path !== '/') {
+    // /mobil dan /pelanggan tanpa nama file -> arahkan ke halaman list
+    if ($path === '/mobil' || $path === '/pelanggan') {
+        header('Location: ' . $path . '/list.php');
+        exit;
+    }
+
+    // hanya file .php di dalam 3 folder ini yang boleh dibuka
+    if (preg_match('#^/(auth|mobil|pelanggan)/([A-Za-z0-9_]+)\.php$#', $path, $m)) {
+        $target = __DIR__ . '/' . $m[1] . '/' . $m[2] . '.php';
+        if (is_file($target)) {
+            require $target;
+            exit;
+        }
+    }
+
+    http_response_code(404);
+    echo '404 - Halaman tidak ditemukan';
+    exit;
+}
+
+// ===== BERANDA (URL: /) =====
 require __DIR__ . '/includes/auth.php';
 require_login();
 
