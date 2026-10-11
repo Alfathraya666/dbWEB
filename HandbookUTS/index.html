@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Handbook SIMPUS-Mini</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<aside class="sidebar">
+    <h1>Handbook SIMPUS-Mini</h1>
+    <p class="sub">Sistem Perpustakaan Mini &mdash; HTML, CSS, JavaScript</p>
+    <nav>
+        <ol>
+            <li><a href="#gambaran">1. Gambaran proyek</a></li>
+            <li><a href="#struktur">2. Struktur folder</a></li>
+            <li><a href="#halaman">3. Daftar halaman</a></li>
+            <li><a href="#html">4. Struktur HTML</a></li>
+            <li><a href="#css">5. Panduan CSS</a></li>
+            <li><a href="#js">6. Panduan JavaScript</a></li>
+            <li><a href="#data">7. Data JSON</a></li>
+            <li><a href="#alur">8. Alur kerja aplikasi</a></li>
+            <li><a href="#cheat">9. Contekan cepat</a></li>
+        </ol>
+    </nav>
+</aside>
+
+<main class="content">
+
+<section id="gambaran">
+    <h2>1. Gambaran proyek</h2>
+    <p class="lead">SIMPUS-Mini adalah aplikasi perpustakaan sederhana untuk melihat daftar buku dan anggota, mencari data, menghapus baris, dan mengisi form tambah data.</p>
+    <ul class="list">
+        <li><strong>HTML</strong> membentuk kerangka lima halaman.</li>
+        <li><strong>CSS</strong> (<code>style.css</code>) mengatur tampilan: warna cokelat, card, tabel, form, dan layout responsif.</li>
+        <li><strong>JavaScript</strong> mengambil data dari file JSON, membuat baris tabel, menjalankan pencarian, konfirmasi hapus, validasi form, dan menu hamburger.</li>
+    </ul>
+    <div class="warn"><p>Karena memakai <code>fetch()</code>, proyek harus dibuka lewat server lokal (misalnya ekstensi Live Server di VS Code). Jika dibuka langsung dengan <code>file://</code>, data tidak akan tampil.</p></div>
+</section>
+
+<section id="struktur">
+    <h2>2. Struktur folder</h2>
+<pre class="tree"><code>SIMPUS-Mini/
+├── index.html              (Beranda)
+├── buku/
+│   ├── list.html           (Daftar Buku)
+│   └── tambah.html         (Form Tambah Buku)
+├── anggota/
+│   ├── list.html           (Daftar Anggota)
+│   └── tambah.html         (Form Tambah Anggota)
+├── data/
+│   ├── buku.json
+│   └── anggota.json
+└── assets/
+    ├── css/style.css
+    └── js/
+        ├── app.js          (fungsi umum semua halaman)
+        ├── buku.js         (memuat daftar buku)
+        └── anggota.js      (memuat daftar anggota)</code></pre>
+    <div class="note"><p><strong>Path relatif:</strong> <code>index.html</code> ada di root, jadi memanggil <code>assets/css/style.css</code>. Halaman di dalam folder <code>buku/</code> atau <code>anggota/</code> harus naik satu tingkat dulu dengan <code>../</code>, misalnya <code>../assets/css/style.css</code>.</p></div>
+</section>
+
+<section id="halaman">
+    <h2>3. Daftar halaman</h2>
+    <div class="table-wrap">
+    <table>
+        <thead><tr><th>File</th><th>Fungsi</th><th>Script yang dimuat</th></tr></thead>
+        <tbody>
+            <tr><td><code>index.html</code></td><td>Sambutan dan 3 kartu ringkasan (Total Buku, Total Anggota, Sedang Dipinjam)</td><td><code>app.js</code></td></tr>
+            <tr><td><code>buku/list.html</code></td><td>Tabel buku, kotak cari, indikator loading</td><td><code>app.js</code>, <code>buku.js</code></td></tr>
+            <tr><td><code>buku/tambah.html</code></td><td>Form judul, pengarang, tahun, ISBN, stok, kategori</td><td><code>app.js</code></td></tr>
+            <tr><td><code>anggota/list.html</code></td><td>Tabel anggota (no. anggota, nama, alamat, no. HP)</td><td><code>app.js</code>, <code>anggota.js</code></td></tr>
+            <tr><td><code>anggota/tambah.html</code></td><td>Form nama, no. anggota, alamat, no. HP</td><td><code>app.js</code></td></tr>
+        </tbody>
+    </table>
+    </div>
+    <p>Urutan <code>&lt;script&gt;</code> penting: <code>app.js</code> dimuat lebih dulu, baru <code>buku.js</code> / <code>anggota.js</code>.</p>
+</section>
+
+<section id="html">
+    <h2>4. Struktur HTML</h2>
+    <p>Semua halaman memakai kerangka yang sama. Hanya isi <code>&lt;main&gt;</code> dan path yang berbeda.</p>
+<span class="file-label">kerangka halaman</span>
+<pre><code>&lt;body&gt;
+  &lt;header&gt;
+    &lt;h1&gt;SIMPUS-Mini&lt;/h1&gt;
+    &lt;button id="nav-toggle-btn" class="nav-toggle-label"&gt;&amp;#9776;&lt;/button&gt;
+    &lt;nav&gt;&lt;ul&gt; ...link menu... &lt;/ul&gt;&lt;/nav&gt;
+  &lt;/header&gt;
+
+  &lt;main&gt;
+    &lt;section&gt; ...isi halaman... &lt;/section&gt;
+  &lt;/main&gt;
+
+  &lt;footer&gt;&amp;copy; 2026 SIMPUS-Mini&lt;/footer&gt;
+  &lt;script src="../assets/js/app.js"&gt;&lt;/script&gt;
+&lt;/body&gt;</code></pre>
+
+    <h3>Tag semantik yang dipakai</h3>
+    <div class="table-wrap">
+    <table>
+        <thead><tr><th>Tag</th><th>Peran</th></tr></thead>
+        <tbody>
+            <tr><td><code>header</code></td><td>Bagian atas: judul dan navbar</td></tr>
+            <tr><td><code>nav</code> + <code>ul</code></td><td>Daftar menu navigasi</td></tr>
+            <tr><td><code>main</code></td><td>Konten utama halaman</td></tr>
+            <tr><td><code>section</code></td><td>Satu blok konten; di CSS tampil seperti card</td></tr>
+            <tr><td><code>article</code></td><td>Satu kartu ringkasan di Beranda</td></tr>
+            <tr><td><code>footer</code></td><td>Hak cipta di bagian bawah</td></tr>
+        </tbody>
+    </table>
+    </div>
+
+    <h3>Id penting yang dibaca JavaScript</h3>
+    <div class="table-wrap">
+    <table>
+        <thead><tr><th>Id / class</th><th>Dipakai oleh</th></tr></thead>
+        <tbody>
+            <tr><td><code>#nav-toggle-btn</code></td><td><code>initNavToggle()</code> &mdash; tombol hamburger</td></tr>
+            <tr><td><code>#search-input</code></td><td><code>initTableFilter()</code> &mdash; kotak cari</td></tr>
+            <tr><td><code>#loading-indicator</code></td><td><code>buku.js</code> / <code>anggota.js</code> &mdash; teks "Memuat data..."</td></tr>
+            <tr><td><code>#form-tambah</code></td><td><code>initValidasiForm()</code> &mdash; form tambah</td></tr>
+            <tr><td><code>.btn-hapus</code></td><td><code>initHapusConfirm()</code> &mdash; tombol hapus</td></tr>
+        </tbody>
+    </table>
+    </div>
+
+    <h3>Input pada form</h3>
+    <ul class="list">
+        <li>Atribut <code>required</code> membuat browser menolak field kosong.</li>
+        <li><code>type="number"</code> dengan <code>min</code> dan <code>max</code> membatasi angka (tahun 1900&ndash;2026, stok minimal 0).</li>
+        <li><code>&lt;label for="x"&gt;</code> harus sama dengan <code>id="x"</code> pada input supaya label bisa diklik.</li>
+    </ul>
+</section>
+
+<section id="css">
+    <h2>5. Panduan CSS</h2>
+    <p>File: <code>assets/css/style.css</code>. Dibagi menjadi bagian-bagian berikut.</p>
+    <div class="table-wrap">
+    <table>
+        <thead><tr><th>Bagian</th><th>Selector utama</th><th>Fungsi</th></tr></thead>
+        <tbody>
+            <tr><td>Reset &amp; base</td><td><code>*</code>, <code>body</code>, <code>a</code></td><td>Hapus margin/padding bawaan, set font, warna, dan gaya link</td></tr>
+            <tr><td>Header &amp; navbar</td><td><code>header</code>, <code>header nav ul</code></td><td>Flexbox: judul di kiri, menu di kanan</td></tr>
+            <tr><td>Layout utama</td><td><code>main</code>, <code>section</code></td><td>Lebar maks 1000px, tengah; section jadi card</td></tr>
+            <tr><td>Ringkasan</td><td><code>main section:nth-of-type(2)</code></td><td>Tiga kartu tersusun vertikal (column)</td></tr>
+            <tr><td>Tabel</td><td><code>table</code>, <code>th</code>, <code>td</code>, <code>tbody tr</code></td><td>Garis bawah, baris genap berwarna, efek hover</td></tr>
+            <tr><td>Tombol tabel</td><td><code>td button</code></td><td>Edit (oranye) dan Hapus (merah)</td></tr>
+            <tr><td>Form</td><td><code>form label</code>, <code>form input</code></td><td>Label satu baris, input maks 400px, efek fokus</td></tr>
+            <tr><td>Komponen</td><td><code>.action-bar</code>, <code>.form-container</code>, <code>.info</code></td><td>Bar aksi, wadah form, kotak informasi</td></tr>
+            <tr><td>Responsive</td><td><code>@media</code></td><td>Penyesuaian tablet dan HP</td></tr>
+        </tbody>
+    </table>
+    </div>
+
+    <h3>Palet warna</h3>
+    <div class="table-wrap">
+    <table>
+        <thead><tr><th>Kode</th><th>Dipakai untuk</th></tr></thead>
+        <tbody>
+            <tr><td><code>#a9784f</code></td><td>Header, kepala tabel, tombol Simpan</td></tr>
+            <tr><td><code>#8b5e3c</code></td><td>Judul section, angka ringkasan, hover tombol</td></tr>
+            <tr><td><code>#faf7f2</code></td><td>Background halaman</td></tr>
+            <tr><td><code>#fffdf9</code></td><td>Background card/section</td></tr>
+            <tr><td><code>#f5eadb</code></td><td>Kartu ringkasan, hover baris tabel</td></tr>
+            <tr><td><code>#d69a4c</code> / <code>#c96f5b</code></td><td>Tombol Edit / Hapus</td></tr>
+        </tbody>
+    </table>
+    </div>
+
+    <h3>Flexbox yang dipakai</h3>
+<span class="file-label">style.css</span>
+<pre><code>header {
+    display: flex;
+    align-items: center;            /* tengah secara vertikal */
+    justify-content: space-between; /* kiri - kanan */
+    flex-wrap: wrap;                /* boleh turun baris di layar kecil */
+}</code></pre>
+
+    <h3>Kartu Ringkasan dengan nth-of-type</h3>
+    <p><code>main section:nth-of-type(2)</code> memilih <code>&lt;section&gt;</code> kedua di dalam <code>&lt;main&gt;</code>, yaitu bagian "Ringkasan" di Beranda. Di halaman lain hanya ada satu section sehingga aturan ini tidak berpengaruh.</p>
+<pre><code>main section:nth-of-type(2) {
+    display: flex;
+    flex-direction: column;   /* kartu tersusun atas ke bawah */
+    gap: 1rem;
+}
+main section:nth-of-type(2) article {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;  /* judul kiri, angka kanan */
+    min-height: 100px;
+}</code></pre>
+
+    <h3>Tombol Edit &amp; Hapus</h3>
+    <p>JavaScript membuat dua tombol per baris. Warnanya ditentukan posisi, bukan class:</p>
+    <ul class="list">
+        <li><code>td button:first-of-type</code> &rarr; Edit (oranye)</li>
+        <li><code>td button:last-of-type</code> &rarr; Hapus (merah)</li>
+    </ul>
+
+    <h3>Breakpoint responsive</h3>
+    <div class="table-wrap">
+    <table>
+        <thead><tr><th>Lebar layar</th><th>Perubahan</th></tr></thead>
+        <tbody>
+            <tr><td>&le; 768px (tablet)</td><td>Padding <code>main</code> mengecil, kartu ringkasan lebih pendek</td></tr>
+            <tr><td>&le; 480px (HP)</td><td>Navbar disembunyikan dan muncul lewat hamburger; menu vertikal; angka ringkasan mengecil; input memenuhi lebar layar</td></tr>
+        </tbody>
+    </table>
+    </div>
+
+    <h3>Hamburger menu</h3>
+    <ul class="list">
+        <li><code>.nav-toggle-label</code> disembunyikan di desktop (<code>display: none</code>) dan ditampilkan di HP.</li>
+        <li>Di HP, <code>header nav</code> disembunyikan. Class <code>nav-open</code> yang ditambahkan JavaScript menampilkannya kembali (<code>header nav.nav-open { display: block; }</code>).</li>
+        <li>Cara lama (checkbox <code>.nav-toggle:checked ~ nav</code>) masih ada di CSS dan dipakai oleh <code>index.html</code>.</li>
+    </ul>
+</section>
+
+<section id="js">
+    <h2>6. Panduan JavaScript</h2>
+
+    <h3>app.js &mdash; fungsi umum (semua halaman)</h3>
+    <div class="table-wrap">
+    <table>
+        <thead><tr><th>Fungsi</th><th>Tugas</th></tr></thead>
+        <tbody>
+            <tr><td><code>initNavToggle()</code></td><td>Klik tombol hamburger &rarr; <code>nav.classList.toggle("nav-open")</code></td></tr>
+            <tr><td><code>initHapusConfirm()</code></td><td>Event delegation pada <code>document</code>. Klik <code>.btn-hapus</code> &rarr; <code>confirm()</code> &rarr; jika Ya, baris dihapus dengan <code>row.remove()</code></td></tr>
+            <tr><td><code>initTableFilter()</code></td><td>Setiap <code>keyup</code> di <code>#search-input</code>, baris yang teksnya tidak mengandung kata kunci disembunyikan</td></tr>
+            <tr><td><code>initValidasiForm()</code></td><td>Saat submit, cek field wajib, tahun (1900&ndash;2026), dan stok (&ge; 0). Jika ada yang salah, <code>e.preventDefault()</code></td></tr>
+            <tr><td><code>tampilkanError()</code> / <code>hapusError()</code></td><td>Membuat dan menghapus <code>&lt;span class="error"&gt;</code> tepat setelah input</td></tr>
+        </tbody>
+    </table>
+    </div>
+    <p>Semua fungsi <code>init...</code> dipanggil sekali di <code>DOMContentLoaded</code>.</p>
+    <div class="note"><p><strong>Kenapa event delegation?</strong> Tombol Hapus dibuat belakangan oleh <code>fetch</code>, jadi belum ada saat halaman selesai dimuat. Listener dipasang di <code>document</code> lalu dicek dengan <code>e.target.closest(".btn-hapus")</code>.</p></div>
+
+    <h3>buku.js dan anggota.js &mdash; memuat tabel</h3>
+    <p>Keduanya punya pola yang sama:</p>
+    <ol class="list">
+        <li>Tampilkan "Memuat data..." dan kosongkan <code>&lt;tbody&gt;</code>.</li>
+        <li>Tunggu 600 ms (simulasi loading) dengan <code>setTimeout</code> di dalam Promise.</li>
+        <li><code>fetch("../data/....json")</code>; jika <code>res.ok</code> salah, lempar error.</li>
+        <li>Untuk setiap data, buat <code>&lt;tr&gt;</code> berisi sel data dan tombol Edit/Hapus, lalu <code>appendChild</code>.</li>
+        <li><code>catch</code> menampilkan pesan gagal di tabel; <code>finally</code> selalu menyembunyikan loading.</li>
+    </ol>
+<span class="file-label">pola async/await</span>
+<pre><code>async function muatDaftarBuku() {
+    try {
+        const res  = await fetch("../data/buku.json");
+        if (!res.ok) throw new Error("status " + res.status);
+        const data = await res.json();
+        data.forEach(function (buku) { /* buat baris tabel */ });
+    } catch (err) {
+        /* tampilkan pesan error */
+    } finally {
+        /* sembunyikan loading */
+    }
+}
+document.addEventListener("DOMContentLoaded", muatDaftarBuku);</code></pre>
+</section>
+
+<section id="data">
+    <h2>7. Data JSON</h2>
+    <div class="table-wrap">
+    <table>
+        <thead><tr><th>File</th><th>Field</th><th>Jumlah data</th></tr></thead>
+        <tbody>
+            <tr><td><code>data/buku.json</code></td><td><code>judul</code>, <code>pengarang</code>, <code>tahun</code>, <code>stok</code></td><td>10 buku</td></tr>
+            <tr><td><code>data/anggota.json</code></td><td><code>no_anggota</code>, <code>nama</code>, <code>alamat</code>, <code>no_hp</code></td><td>8 anggota</td></tr>
+        </tbody>
+    </table>
+    </div>
+    <p>Nama field di JSON harus sama persis dengan yang dipanggil di JavaScript (<code>buku.judul</code>, <code>anggota.no_hp</code>, dst.). Satu data berbentuk:</p>
+<pre><code>{"no_anggota": "A001", "nama": "Al Fath Raya Maulana", "alamat": "Malang", "no_hp": "0812xxxxxxxx"}</code></pre>
+</section>
+
+<section id="alur">
+    <h2>8. Alur kerja aplikasi</h2>
+    <h3>Membuka Daftar Buku</h3>
+    <ol class="list">
+        <li>Browser memuat <code>buku/list.html</code> dan <code>style.css</code>.</li>
+        <li><code>app.js</code> dan <code>buku.js</code> dijalankan setelah DOM siap.</li>
+        <li><code>buku.js</code> mengambil <code>buku.json</code> dan mengisi tabel.</li>
+        <li>Pengguna mengetik di kotak cari &rarr; baris disaring langsung.</li>
+        <li>Pengguna klik Hapus &rarr; muncul konfirmasi &rarr; baris hilang dari tampilan.</li>
+    </ol>
+    <h3>Mengisi form Tambah</h3>
+    <ol class="list">
+        <li>Pengguna mengisi form dan klik Simpan.</li>
+        <li>Browser mengecek atribut <code>required</code>, <code>min</code>, <code>max</code>.</li>
+        <li><code>initValidasiForm()</code> mengecek lagi; jika salah, pesan merah muncul dan submit dibatalkan.</li>
+    </ol>
+</section>
+
+<section id="cheat">
+    <h2>9. Contekan cepat</h2>
+    <div class="table-wrap">
+    <table>
+        <thead><tr><th>Ingin...</th><th>Ubah di</th></tr></thead>
+        <tbody>
+            <tr><td>Ganti warna tema</td><td><code>style.css</code>: cari <code>#a9784f</code> dan <code>#8b5e3c</code></td></tr>
+            <tr><td>Ubah tinggi kartu Ringkasan</td><td><code>min-height</code> di <code>main section:nth-of-type(2) article</code></td></tr>
+            <tr><td>Kartu Ringkasan berjajar horizontal</td><td>Ubah <code>flex-direction: column</code> jadi <code>row</code></td></tr>
+            <tr><td>Tambah buku di tabel</td><td>Tambah objek baru di <code>data/buku.json</code></td></tr>
+            <tr><td>Ubah lama loading</td><td>Angka <code>600</code> pada <code>setTimeout</code></td></tr>
+            <tr><td>Ubah batas tahun</td><td><code>min</code>/<code>max</code> di <code>buku/tambah.html</code> dan angka 1900/2026 di <code>app.js</code></td></tr>
+            <tr><td>Tambah menu</td><td>Tambah <code>&lt;li&gt;&lt;a&gt;</code> di <code>&lt;nav&gt;</code> semua halaman</td></tr>
+        </tbody>
+    </table>
+    </div>
+    <footer>Handbook SIMPUS-Mini &mdash; Jobsheet 1</footer>
+</section>
+
+</main>
+</body>
+</html>
