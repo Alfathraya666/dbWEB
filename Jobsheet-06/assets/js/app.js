@@ -115,3 +115,15 @@ document.addEventListener("DOMContentLoaded", function () {
     initTableFilter();
     initValidasiForm();
 });
+
+async function muatRingkasan() {
+    const elBuku = document.getElementById("total-buku");
+    const elAnggota = document.getElementById("total-anggota");
+    if (!elBuku || !elAnggota) return;
+
+    const buku = await (await fetch("data/buku.json")).json();
+    const anggota = await (await fetch("data/anggota.json")).json();
+    elBuku.textContent = buku.length;
+    elAnggota.textContent = anggota.length;
+}
+document.addEventListener("DOMContentLoaded", muatRingkasan);
