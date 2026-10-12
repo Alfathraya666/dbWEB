@@ -161,7 +161,7 @@ article {
 }
 
 article:hover {
-    transform: translateY(-3px);
+    transform: translateY(20px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
@@ -262,7 +262,7 @@ button.btn-hapus {
 
 button.btn-hapus:hover {
     background: var(--accent-red);
-    color: #fff;
+    color: #fff;    
 }
 
 td button:not(.btn-hapus) {
